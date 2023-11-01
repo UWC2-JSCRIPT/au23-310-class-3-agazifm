@@ -4,9 +4,6 @@
 // '206-333-4444'
 // '206 333 4444'
 // Returns true if valid, false if not valid
-
-
-
 // Explanation of RegExp
 // ^      start of line
 // \(     optional start parenthesis
@@ -17,6 +14,14 @@
 // [-\s]  one of a space or a dash
 // \d{4}  exactly 4 digit characters
 // $      end of line
+
+function testPhoneNumber(phoneNumber){
+    //defines a regular expression pattern that matches the phone numbers given
+    const RegExp = /^(\(\d{3}\)\s?|\d{3}[-\s]?)\d{3}[-\s]?\d{4}$/;
+
+    //tests the phonenumber using the RexExp search
+    return RegExp.test (phoneNumber);
+}
 
 // check testPhoneNumber
 console.log(testPhoneNumber('(206) 333-4444')); // should return true
@@ -30,6 +35,18 @@ console.log(testPhoneNumber('(206) 33-4444')); // should return false, missing a
 // the phone number.
 // Returns an object in the format {areaCode, phoneNumber}
 
+function parsePhoneNumber(phoneNumber){
+    //defines a regular expression pattern to capture two parts of the phone number
+    const RegExp2 = /(\d{3})[^\d]*(\d{3}[-\s]?\d{4})/
+    const match = RegExp2.exec(phoneNumber);
+
+    //checks if match is null
+    //if not, will return an object with areaCode & phoneNumber
+    return match
+        ? { areaCode: match[1], phoneNumber: match[2].replace(/[^0-9]/g, '')}
+        :null;
+
+}
 
 
 // Check parsePhoneNumber
